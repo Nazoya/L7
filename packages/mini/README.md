@@ -1,4 +1,4 @@
-# `mini`
+# `L7-mini`
 
 > TODO: description
 
