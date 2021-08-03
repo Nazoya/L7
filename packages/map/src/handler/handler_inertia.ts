@@ -71,13 +71,11 @@ export default class HandlerInertia {
 
   public record(settings: any) {
     this.drainInertiaBuffer();
-    // @ts-ignore
     this.inertiaBuffer.push({ time: now(), settings });
   }
 
   public drainInertiaBuffer() {
     const inertia = this.inertiaBuffer;
-    // @ts-ignore
     const nowTime = now();
     const cutoff = 160; // msec
 

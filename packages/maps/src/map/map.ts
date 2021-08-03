@@ -19,7 +19,7 @@ import {
   TYPES,
 } from '@antv/l7-core';
 import { Map } from '@antv/l7-map';
-// import { DOM } from '@antv/l7-utils';// l7 - mini
+import { DOM } from '@antv/l7-utils';
 import { mat4, vec2, vec3 } from 'gl-matrix';
 import { inject, injectable } from 'inversify';
 import { Version } from '../version';
@@ -63,10 +63,9 @@ export default class L7MapService implements IMapService<Map> {
 
   // init
   public addMarkerContainer(): void {
-    // const container = this.map.getCanvasContainer();// l7 - mini
-    // @ts-ignore
-    // this.markerContainer = DOM.create('div', 'l7-marker-container', container);// l7 - mini
-    // this.markerContainer.setAttribute('tabindex', '-1');// l7 - mini
+    const container = this.map.getCanvasContainer();
+    this.markerContainer = DOM.create('div', 'l7-marker-container', container);
+    this.markerContainer.setAttribute('tabindex', '-1');
   }
 
   public getMarkerContainer(): HTMLElement {
@@ -265,11 +264,10 @@ export default class L7MapService implements IMapService<Map> {
       this.map = mapInstance;
       this.$mapContainer = this.map.getContainer();
     } else {
-      // this.$mapContainer = this.creatAmapContainer(id); // l7 - mini
-      // console.log('this.$mapContainer', this.$mapContainer)
+      this.$mapContainer = this.creatAmapContainer(id);
       // @ts-ignore
       this.map = new Map({
-        // container: this.$mapContainer, // l7 - mini
+        container: this.$mapContainer,
         style: this.getMapStyle(style),
         bearing: rotation,
         ...rest,

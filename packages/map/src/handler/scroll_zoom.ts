@@ -152,7 +152,6 @@ class ScrollZoomHandler {
       e.deltaMode === window.WheelEvent.DOM_DELTA_LINE
         ? e.deltaY * 40
         : e.deltaY;
-    // @ts-ignore
     const nowTime = now();
     const timeDelta = nowTime - (this.lastWheelEventTime || 0);
 
@@ -265,7 +264,6 @@ class ScrollZoomHandler {
     let finished = false;
     let zoom;
     if (this.type === 'wheel' && startZoom && easing) {
-      // @ts-ignore
       const t = Math.min((now() - this.lastWheelEventTime) / 200, 1);
       const k = easing(t);
       zoom = interpolate(startZoom, targetZoom, k);
@@ -289,9 +287,7 @@ class ScrollZoomHandler {
       this.finishTimeout = setTimeout(() => {
         this.zooming = false;
         this.handler.triggerRenderFrame();
-        // @ts-ignore
         delete this.targetZoom;
-        // @ts-ignore
         delete this.finishTimeout;
       }, 200);
     }
@@ -329,7 +325,6 @@ class ScrollZoomHandler {
 
     if (this.finishTimeout) {
       clearTimeout(this.finishTimeout);
-      // @ts-ignore
       delete this.finishTimeout;
     }
 
@@ -350,7 +345,6 @@ class ScrollZoomHandler {
 
     if (this.prevEase) {
       const preEase = this.prevEase;
-      // @ts-ignore
       const t = (now() - preEase.start) / preEase.duration;
       const speed = preEase.easing(t + 0.01) - preEase.easing(t);
 
@@ -362,7 +356,6 @@ class ScrollZoomHandler {
     }
 
     this.prevEase = {
-      // @ts-ignore
       start: now(),
       duration,
       easing,

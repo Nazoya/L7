@@ -23,7 +23,6 @@ import {
 } from '@antv/l7-core';
 import { injectable } from 'inversify';
 import regl from 'regl';
-// import regl from 'l7regl';
 import ReglAttribute from './ReglAttribute';
 import ReglBuffer from './ReglBuffer';
 import ReglElements from './ReglElements';
@@ -44,20 +43,16 @@ export default class ReglRendererService implements IRendererService {
   private height: number;
   private isDirty: boolean;
 
-  // @ts-ignore
   public async init(
-    // canvas: HTMLCanvasElement,    // l7 - mini disable
-    ctx: WebGLRenderingContext, // l7 - mini able
+    canvas: HTMLCanvasElement,
     cfg: IRenderConfig,
   ): Promise<void> {
-    // console.log('regl init');
     // this.$container = $container;
-    // this.canvas = canvas; // l7 - mini disable
+    this.canvas = canvas;
     // tslint:disable-next-line:typedef
     this.gl = await new Promise((resolve, reject) => {
       regl({
-        // canvas: this.canvas, // l7 - mini disable
-        gl: ctx, // l7 - mini able
+        canvas: this.canvas,
         attributes: {
           alpha: true,
           // use TAA instead of MSAA
@@ -88,10 +83,10 @@ export default class ReglRendererService implements IRendererService {
         },
       });
     });
-    // console.log('this.gl', this.gl)
-    // this.extensionObject = { // l7 - mini
-    //   OES_texture_float: this.testExtension('OES_texture_float'), // l7 - mini
-    // }; // l7 - mini
+
+    this.extensionObject = {
+      OES_texture_float: this.testExtension('OES_texture_float'),
+    };
   }
 
   public testExtension(name: string) {
@@ -142,7 +137,7 @@ export default class ReglRendererService implements IRendererService {
       framebuffer === null
         ? framebuffer
         : (framebuffer as ReglFramebuffer).get();
-    // console.log('this.gl', this.gl);
+
     this.gl.clear(reglClearOptions);
   };
 

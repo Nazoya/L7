@@ -152,7 +152,6 @@ export default class AMapService
       //   'amap-maps',
       // )[0] as HTMLElement;
       // this.markerContainer = DOM.create('div', 'l7-marker-container2', amap);
-      // @ts-ignore
       this.markerContainer = DOM.create(
         'div',
         'l7-marker-container2',

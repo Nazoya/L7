@@ -31,7 +31,7 @@ import {
   TYPES,
 } from '@antv/l7-core';
 import { ReglRendererService } from '@antv/l7-renderer';
-// import { DOM } from '@antv/l7-utils'; // l7 - mini
+import { DOM } from '@antv/l7-utils';
 import { Container } from 'inversify';
 import ILayerManager from './ILayerManager';
 import IMapController from './IMapController';
@@ -73,7 +73,6 @@ class Scene
     // 绑定渲染引擎服务
     sceneContainer
       .bind<IRendererService>(TYPES.IRendererService)
-      // @ts-ignore
       .to(ReglRendererService)
       .inSingletonScope();
 
@@ -97,13 +96,13 @@ class Scene
     );
     this.popupService = sceneContainer.get<IPopupService>(TYPES.IPopupService);
 
-    // this.initComponent(id); // l7 - mini
+    this.initComponent(id);
 
     // 初始化 scene
     this.sceneService.init(config);
     // TODO: 初始化组件
 
-    // this.initControl(); // l7 - mini
+    this.initControl();
   }
   public getServiceContainer(): Container {
     return this.container;
@@ -184,7 +183,6 @@ class Scene
   }
 
   public render(): void {
-    // console.log('this.sceneService.render()');
     this.sceneService.render();
   }
 
@@ -263,7 +261,6 @@ class Scene
   }
 
   public on(type: string, handle: (...args: any[]) => void): void {
-    // console.log('add listener');
     SceneEventList.indexOf(type) === -1
       ? this.mapService.on(type, handle)
       : this.sceneService.on(type, handle);
@@ -393,20 +390,19 @@ class Scene
   }
 
   private initComponent(id: string | HTMLDivElement) {
-    // this.controlService.init( // l7 - mini
-    //   {// l7 - mini
-    //     container: DOM.getContainer(id),// l7 - mini
-    //   },// l7 - mini
-    //   this.container,// l7 - mini
-    // );// l7 - mini
-    // this.markerService.init(this.container);// l7 - mini
-    // this.popupService.init(this.container);// l7 - mini
+    this.controlService.init(
+      {
+        container: DOM.getContainer(id),
+      },
+      this.container,
+    );
+    this.markerService.init(this.container);
+    this.popupService.init(this.container);
   }
 
   private initControl() {
     const { logoVisible, logoPosition } = this.sceneService.getSceneConfig();
     if (logoVisible) {
-      // @ts-ignore
       this.addControl(new Logo({ position: logoPosition }));
     }
   }

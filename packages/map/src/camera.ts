@@ -618,9 +618,7 @@ export default class Camera extends EventEmitter {
   public stop(allowGestures?: boolean, easeId?: string) {
     if (this.easeFrameId) {
       this.cancelRenderFrame(this.easeFrameId);
-      // @ts-ignore
       delete this.easeFrameId;
-      // @ts-ignore
       delete this.onEaseFrame;
     }
 
@@ -629,7 +627,6 @@ export default class Camera extends EventEmitter {
       // animation, which sets a new _onEaseEnd. Ensure we don't delete
       // it unintentionally.
       const onEaseEnd = this.onEaseEnd;
-      // @ts-ignore
       delete this.onEaseEnd;
       onEaseEnd.call(this, easeId);
     }
@@ -640,7 +637,6 @@ export default class Camera extends EventEmitter {
     return this;
   }
   public renderFrameCallback = () => {
-    // @ts-ignore
     const t = Math.min((now() - this.easeStart) / this.easeOptions.duration, 1);
     this.onEaseFrame(this.easeOptions.easing(t));
     if (t < 1) {
@@ -711,7 +707,6 @@ export default class Camera extends EventEmitter {
     if (this.easeId && easeId && this.easeId === easeId) {
       return;
     }
-    // @ts-ignore
     delete this.easeId;
 
     const wasZooming = this.zooming;
@@ -748,7 +743,6 @@ export default class Camera extends EventEmitter {
       frame(1);
       finish();
     } else {
-      // @ts-ignore
       this.easeStart = now();
       this.easeOptions = options;
       this.onEaseFrame = frame;

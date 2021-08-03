@@ -195,8 +195,5 @@
   },
   "tnpm": {
     "mode": "yarn"
-  },
-  "dependencies": {
-    "l7regl": "^0.0.5"
   }
 }

@@ -35,7 +35,6 @@ export default class Zoom extends Control {
       this.controlOption.zoomInText,
       this.controlOption.zoomInTitle,
       zoomName + '-in',
-      // @ts-ignore
       container,
       this.zoomIn,
     );
@@ -43,14 +42,12 @@ export default class Zoom extends Control {
       this.controlOption.zoomOutText,
       this.controlOption.zoomOutTitle,
       zoomName + '-out',
-      // @ts-ignore
       container,
       this.zoomOut,
     );
     this.mapsService.on('zoomend', this.updateDisabled);
     this.mapsService.on('zoomchange', this.updateDisabled);
     this.updateDisabled();
-    // @ts-ignore
     return container;
   }
 
@@ -94,7 +91,6 @@ export default class Zoom extends Control {
     container: HTMLElement,
     fn: (...arg: any[]) => any,
   ) {
-    // @ts-ignore
     const link = DOM.create('a', className, container) as HTMLLinkElement;
     link.innerHTML = html;
     link.title = tile;
