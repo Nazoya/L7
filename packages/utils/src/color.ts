@@ -33,7 +33,7 @@ export function encodePickingColor(
     (((featureIdx + 1) >> 8) >> 8) & 255,
   ];
 }
-
+// TODO:
 export function generateColorRamp(colorRamp: IColorRamp): ImageData {
   const canvas = document.createElement('canvas');
   const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;

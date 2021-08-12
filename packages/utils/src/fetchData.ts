@@ -1,3 +1,5 @@
+import { $XMLHttpRequest } from './mini-adapter';
+
 class AJAXError extends Error {
   private status: number;
   private url: string;
@@ -18,7 +20,7 @@ class AJAXError extends Error {
 }
 
 function makeRequest(requestParameters: any) {
-  const xhr = new XMLHttpRequest();
+  const xhr = new $XMLHttpRequest();
 
   xhr.open('GET', requestParameters.url, true);
   for (const k in requestParameters.headers) {

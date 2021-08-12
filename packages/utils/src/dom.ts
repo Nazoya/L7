@@ -1,9 +1,11 @@
-const docStyle = window.document.documentElement.style;
+import { $document, $window } from './mini-adapter';
+
+const docStyle = $window.document.documentElement.style;
 type ELType = HTMLElement | SVGElement;
 export function getContainer(domId: string | HTMLDivElement) {
   let $dom = domId as HTMLDivElement;
   if (typeof domId === 'string') {
-    $dom = document.getElementById(domId) as HTMLDivElement;
+    $dom = $document.getElementById(domId) as HTMLDivElement;
   }
   return $dom;
 }
@@ -35,7 +37,7 @@ export function create(
   className?: string,
   container?: HTMLElement,
 ) {
-  const el = document.createElement(tagName);
+  const el = $document.createElement(tagName);
   el.className = className || '';
 
   if (container) {
@@ -132,25 +134,30 @@ export function setTransform(el: ELType, value: string) {
 export function triggerResize() {
   if (typeof Event === 'function') {
     // modern browsers
-    window.dispatchEvent(new Event('resize'));
+    $window.dispatchEvent(new Event('resize'));
   } else {
     // for IE and other old browsers
     // causes deprecation warning on modern browsers
-    const evt = window.document.createEvent('UIEvents');
+    const evt = $window.document.createEvent('UIEvents');
     // @ts-ignore
-    evt.initUIEvent('resize', true, false, window, 0);
-    window.dispatchEvent(evt);
+    evt.initUIEvent('resize', true, false, $window, 0);
+    $window.dispatchEvent(evt);
   }
 }
 
 export function printCanvas(canvas: HTMLCanvasElement) {
-  const css = [
-    'padding: ' + (canvas.height / 2 - 8) + 'px ' + canvas.width / 2 + 'px;',
-    'line-height: ' + canvas.height + 'px;',
-    'background-image: url(' + canvas.toDataURL() + ');',
-  ];
-  // tslint:disable-next-line:no-console
-  console.log('%c\n', css.join(''));
+  try {
+    const css = [
+      'padding: ' + (canvas.height / 2 - 8) + 'px ' + canvas.width / 2 + 'px;',
+      'line-height: ' + canvas.height + 'px;',
+      'background-image: url(' + canvas.toDataURL() + ');',
+    ];
+    // tslint:disable-next-line:no-console
+    console.log('%c\n', css.join(''));
+  } catch (err) {
+    // tslint:disable-next-line:no-console
+    console.log('Print canvas error', err);
+  }
 }
 
 export function getViewPortScale() {
@@ -166,4 +173,4 @@ export function getViewPortScale() {
   return scale ? scale.split('=')[1] * 1 : 1;
 }
 
-export const DPR = getViewPortScale() < 1 ? 1 : window.devicePixelRatio;
+export const DPR = getViewPortScale() < 1 ? 1 : $window.devicePixelRatio;

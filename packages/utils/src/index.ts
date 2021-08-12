@@ -7,5 +7,6 @@ export * from './lru_cache';
 export * from './event';
 export * from './color';
 export * from './anchor';
+export * from './mini-adapter';
 import * as Satistics from './statistics';
 export { DOM, Satistics };

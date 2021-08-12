@@ -20,7 +20,7 @@ export const anchorTranslate: { [key: string]: string } = {
   left: 'translate(0,-50%)',
   right: 'translate(-100%,-50%)',
 };
-
+// TODO
 export function applyAnchorClass(
   element: HTMLElement,
   anchor: string,
