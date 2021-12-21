@@ -14,10 +14,6 @@ interface DipperMapProps {
 export function DipperMap(props: DipperMapProps) {
   const { dippermap } = props;
 
-  const jumpDipperMap = (url: string) => {
-    window.open(url, '_blank');
-  };
-
   return (
     <div className='dippermapcontainer'>
       <div className='title'>Dipper Map 地理可视化分析工具</div>
@@ -32,7 +28,7 @@ export function DipperMap(props: DipperMapProps) {
             return (
               <div>
                 <h3 style={{ textAlign: 'center' }}>{item.desc}</h3>
-                <img key={item.alt}  alt={item.alt} src={item.img} />
+                <img key={item.alt} alt={item.alt} src={item.img} />
               </div>
             );
           })}
