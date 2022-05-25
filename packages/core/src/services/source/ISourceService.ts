@@ -69,6 +69,7 @@ export interface ISource {
   tileset: TilesetManager | undefined;
   setData(data: any, options?: ISourceCFG): void;
   updateClusterData(zoom: number): void;
+  getOriginData(): any;
   getFeatureById(id: number): unknown;
   getFeatureId(field: string, value: any): number | undefined;
   getClusters(zoom: number): any;

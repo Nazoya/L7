@@ -6,8 +6,18 @@ import {
   UPDATE_TILE_STRATEGIES,
 } from './const';
 import { Tile } from './tile';
-import { TilesetManagerOptions, UpdateTileStrategy } from './types';
+import { Bounds, TilesetManagerOptions, UpdateTileStrategy } from './types';
 import { getTileIndices } from './utils/lonlat-tile';
+
+export type TilesetManagerOptions = {
+  tileSize: number;
+  zoomOffset: number;
+  minZoom: number;
+  maxZoom: number;
+  extent: Bounds;
+  getTileData: (params: TileLoadParams, tile: Tile) => any;
+  updateStrategy: UpdateTileStrategy | ((tiles: Tile[]) => void);
+};
 
 /**
  * 管理瓦片数据

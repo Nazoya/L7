@@ -8,11 +8,12 @@ import { Tile, TilesetManager } from '@antv/l7-utils';
 import { Container } from 'inversify';
 import BaseModel from '../../core/BaseModel';
 import { IRasterTileLayerStyleOptions } from '../../core/interface';
-import ImageLayer from '../../image';
 import LineLayer from '../../line';
+import MaskLayer from '../../mask';
 import PointLayer from '../../point';
+import PolygonLayer from '../../polygon';
 
-export default class RasterTileModel extends BaseModel {
+export default class VertexTileModel extends BaseModel {
   // 瓦片是否加载成功
   public initedTileset = false;
   // 瓦片数据管理器
@@ -168,6 +169,7 @@ export default class RasterTileModel extends BaseModel {
 
       this.timer = setTimeout(() => {
         this.tilesetManager?.update(zoom, latLonBounds);
+
         if (this.showGrid) {
           this.renderSubGridLayer();
         }
@@ -180,17 +182,28 @@ export default class RasterTileModel extends BaseModel {
     const {
       opacity = 1,
       zIndex = 0,
+      tileLayerName = [],
     } = this.layer.getLayerConfig() as IRasterTileLayerStyleOptions;
-    const layer = new ImageLayer({
+
+    const layerName = tileLayerName[0]; // 'place_label'
+
+    const features = tile.data.layers[layerName]?.features;
+    if (!features) {
+      return null;
+    }
+
+    const layer = new PointLayer({
       visible: tile.isVisible,
       zIndex,
+      mask: true,
     })
-      .source(tile.data, {
-        parser: {
-          type: 'image',
-          extent: tile.bounds,
-        },
+      .source({
+        type: 'FeatureCollection',
+        features,
       })
+      .shape('circle')
+      .color('#00f')
+      .size(10)
       .style({
         opacity,
       });
@@ -199,6 +212,23 @@ export default class RasterTileModel extends BaseModel {
     );
     layer.setContainer(container, this.layer.sceneContainer as Container);
     layer.init();
+
+    const mask = new MaskLayer()
+      .source({
+        type: 'FeatureCollection',
+        features: [tile.bboxPolygon],
+      })
+      .shape('fill')
+      .color('#000')
+      .style({
+        opacity: 0,
+      });
+    const layerContainer = createLayerContainer(
+      this.layer.sceneContainer as Container,
+    );
+    mask.setContainer(layerContainer, this.layer.sceneContainer as Container);
+    mask.init();
+    layer.addMaskLayer(mask);
 
     return layer;
   }
@@ -215,8 +245,11 @@ export default class RasterTileModel extends BaseModel {
       .filter((tile) => tile.isLoaded)
       .map((tile) => {
         if (!tile.layer) {
-          tile.layer = this.creatSubLayer(tile);
-          rasteTileLayer.addChild(tile.layer);
+          const subLayer = this.creatSubLayer(tile);
+          if (subLayer) {
+            tile.layer = subLayer;
+            rasteTileLayer.addChild(tile.layer);
+          }
         } else {
           // 显隐藏控制
           tile.layer.updateLayerConfig({
