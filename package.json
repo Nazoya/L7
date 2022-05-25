@@ -149,7 +149,7 @@
     "prebuild": "run-p tsc lint",
     "build": "yarn clean && lerna run build",
     "postbuild": "yarn build:declarations",
-    "build:declarations": "lerna exec --stream --no-bail 'tsc --project ./tsconfig.build.json'",
+    "build:declarations": "lerna exec --stream --no-bail \"tsc --project ./tsconfig.build.json\"",
     "fix": "run-p -c 'lint:ts-* --fix'",
     "lint:fix": "prettier --write docs/api/**/*.md docs/api/*.md  stories/**/**/*.tsx  *.md",
     "lint:examples": "eslint examples --fix --ext .js",
@@ -208,5 +208,7 @@
     "mode": "yarn"
   },
   "dependencies": {
+    "@antv/geo-coord": "^1.0.8",
+    "D": "^1.0.0"
   }
 }
