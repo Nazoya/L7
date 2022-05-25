@@ -16,7 +16,9 @@ storiesOf('地图性能检测', module)
   .add('更新数据 update point attr&ele', () => <UpdateAttrAndEle />)
   .add('更新数据 update line attr&ele', () => <UpdateAttrAndEle_line />)
   .add('更新数据 update polygon attr&ele', () => <UpdateAttrAndEle_polygon />)
-  .add('更新数据 update plane geometry attr&ele', () => <UpdateAttrAndEle_planeGeometry />)
+  .add('更新数据 update plane geometry attr&ele', () => (
+    <UpdateAttrAndEle_planeGeometry />
+  ))
   .add('更新数据 update updateAttrTimeLine', () => <UpdateAttrTimeLine />)
   .add('更新数据 update UpdateAttrShenZhen', () => <UpdateAttrShenZhen />)
   .add('更新数据 update UpdateHeatMap', () => <UpdateHeatMap />)

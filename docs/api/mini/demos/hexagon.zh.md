@@ -6,19 +6,21 @@ order: 4
 `markdown:docs/common/style.md`
 
 ## 案例
+
 <img width="200px" alt="网格热力" src='https://gw.alipayobjects.com/mdn/rms_23a451/afts/img/A*7VR6To9TiwsAAAAAAAAAAAAAARQnAQ'>
 
 ### 网格热力
 
 index.axml 页面结构代码
+
 ```javascript
 <view class="isLoading" style="height: 100vh" a:if="{{isLoading}}">
   <view class="loadItem" a:for="{{10}}">
   </view>
 </view>
 
-<view id="box" class="wrap" 
-  onTouchStart="onTouchStart" 
+<view id="box" class="wrap"
+  onTouchStart="onTouchStart"
   onTouchMove="onTouchMove"
   onTouchEnd="onTouchEnd"
   >
@@ -33,12 +35,14 @@ index.axml 页面结构代码
       <view class="colorLine" style="background:{{item.color}}"></view>
     </view>
   </view>
-  
+
 </view>
 <image class="antvl7" mode="scaleToFill" src="{{antvl7}}" />
 
 ```
+
 index.less 样式代码
+
 ```less
 .wrap {
   height: 100vh;
@@ -64,6 +68,7 @@ index.less 样式代码
 ```
 
 index.ts 脚本代码
+
 ```javascript
 import {
   Map,
@@ -140,7 +145,7 @@ Page({
         },
       );
 
-      getJSON(hexagonData, function (result, data) {
+      getJSON(hexagonData, function(result, data) {
         if (result) {
           const layer = new HeatmapLayer({ zIndex: 1 })
             .source(data, {
@@ -178,7 +183,7 @@ Page({
         }
       });
 
-      miniScene.on('loaded', function () {
+      miniScene.on('loaded', function() {
         miniScene.addLayer(imageLayer);
         counter.loadLayer();
       });
@@ -189,9 +194,10 @@ Page({
     miniScene.destroy();
   },
 });
-
 ```
+
 方法代码
+
 ```javascript
 function getJSON(url, callback) {
   my.request({

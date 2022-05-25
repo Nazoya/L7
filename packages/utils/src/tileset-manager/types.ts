@@ -19,7 +19,7 @@ export type TileLoadParams = TileOptions & {
 };
 
 export type TileLoadDataOptions = {
-  getData: (tile: TileLoadParams) => Promise<any>;
+  getData: (tile: TileLoadParams, p: Tile) => Promise<any>;
   onLoad: (tile: Tile) => void;
   onError: (error: Error, tile: Tile) => void;
 };

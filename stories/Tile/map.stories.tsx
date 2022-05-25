@@ -14,4 +14,4 @@ storiesOf('瓦片', module)
   .add('VectorLineTile', () => <VectorLineTile />)
   .add('VectorPolygonTile', () => <VectorPolygonTile />)
   .add('OsmRasterTile', () => <OsmRasterTile />)
-  .add('VectorTileClickTest', () => <VectorTileClickTest />)
+  .add('VectorTileClickTest', () => <VectorTileClickTest />);

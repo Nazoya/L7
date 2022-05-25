@@ -6,11 +6,13 @@ order: 4
 `markdown:docs/common/style.md`
 
 ## 案例
+
 <img width="200px" alt="经典热力" src='https://gw.alipayobjects.com/mdn/rms_23a451/afts/img/A*LgBfTbhEgzEAAAAAAAAAAAAAARQnAQ'>
 
 ### 经典热力
 
 index.axml 页面结构代码
+
 ```javascript
 
 <view class="isLoading" style="height: 100vh" a:if="{{isLoading}}">
@@ -18,8 +20,8 @@ index.axml 页面结构代码
   </view>
 </view>
 
-<view id="box" class="wrap" 
-  onTouchStart="onTouchStart" 
+<view id="box" class="wrap"
+  onTouchStart="onTouchStart"
   onTouchMove="onTouchMove"
   onTouchEnd="onTouchEnd"
   >
@@ -37,7 +39,9 @@ index.axml 页面结构代码
 <image class="antvl7" mode="scaleToFill" src="{{antvl7}}" />
 
 ```
+
 index.less 样式代码
+
 ```less
 .wrap {
   height: 100vh;
@@ -49,6 +53,7 @@ index.less 样式代码
 ```
 
 index.ts 脚本代码
+
 ```javascript
 import {
   Map,
@@ -61,7 +66,13 @@ import {
   PointLayer,
 } from '@antv/l7-mini';
 import { getJSON } from '../../request';
-import { antvl7, chinaJSON, chinaBorderLine, population, provinceCenter } from '../../mockData';
+import {
+  antvl7,
+  chinaJSON,
+  chinaBorderLine,
+  population,
+  provinceCenter,
+} from '../../mockData';
 import { handleCanvas, LayerCounter } from '../../utils';
 
 let miniScene;
@@ -107,7 +118,7 @@ Page({
         map: miniMap,
         hasBaseMap: false,
       });
-      getJSON(chinaJSON, function (result, data) {
+      getJSON(chinaJSON, function(result, data) {
         if (result) {
           const polygonLayer = new PolygonLayer({})
             .source(data)
@@ -152,7 +163,7 @@ Page({
         }
       });
 
-      getJSON(chinaBorderLine, function (result, data) {
+      getJSON(chinaBorderLine, function(result, data) {
         if (result) {
           const borderlineLayer = new LineLayer({ zIndex: 2 })
             .source(data)
@@ -185,7 +196,7 @@ Page({
           textAllowOverlap: true,
         });
 
-      miniScene.on('loaded', function () {
+      miniScene.on('loaded', function() {
         miniScene.addLayer(provinceName);
         counter.loadLayer();
       });
@@ -197,7 +208,9 @@ Page({
   },
 });
 ```
+
 方法代码
+
 ```javascript
 function getJSON(url, callback) {
   my.request({

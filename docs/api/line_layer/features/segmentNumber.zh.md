@@ -20,4 +20,3 @@ const layer = new LineLayer({})
     segmentNumber: 15,
   });
 ```
-

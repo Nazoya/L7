@@ -4,30 +4,8 @@ import {
   TileBounds,
   TileLoadDataOptions,
   TileOptions,
-  Bounds,
 } from './types';
 import { getTileWarpXY, tileToBounds } from './utils/lonlat-tile';
-
-type TileOptions = { x: number; y: number; z: number; tileSize: number };
-
-export type TileLoadParams = TileOptions & {
-  bounds: Bounds;
-  // fetch signal
-  signal: AbortSignal;
-};
-
-type TileLoadDataOptions = {
-  getData: (params: TileLoadParams, tile: Tile) => Promise<any>;
-  onLoad: (tile: Tile) => void;
-  onError: (error: Error, tile: Tile) => void;
-};
-
-enum LoadTileDataStatus {
-  Loading = 'Loading',
-  Loaded = 'Loaded',
-  Failure = 'Failure',
-  Cancelled = 'Cancelled',
-}
 
 /**
  * 单个瓦片

@@ -17,7 +17,7 @@ const layer = new LineLayer({})
   .shape('arc')
   .color('#8C1EB2')
   .style({
-    borderWidth: 0.35,   // 默认文 0，最大有效值为 0.5
+    borderWidth: 0.35, // 默认文 0，最大有效值为 0.5
     borderColor: '#888', // 默认为 #ccc
   });
 ```

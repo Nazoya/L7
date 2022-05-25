@@ -6,19 +6,21 @@ order: 4
 `markdown:docs/common/style.md`
 
 ## 案例
+
 <img width="200px" alt="飞线" src='https://gw.alipayobjects.com/mdn/rms_23a451/afts/img/A*GyYeRp1uOIAAAAAAAAAAAAAAARQnAQ'>
 
 ### 飞线
 
 index.axml 页面结构代码
+
 ```javascript
 <view class="isLoading" style="height: 100vh" a:if="{{isLoading}}">
   <view class="loadItem" a:for="{{10}}">
   </view>
 </view>
 
-<view id="box" class="wrap" 
-  onTouchStart="onTouchStart" 
+<view id="box" class="wrap"
+  onTouchStart="onTouchStart"
   onTouchMove="onTouchMove"
   onTouchEnd="onTouchEnd"
   >
@@ -27,7 +29,9 @@ index.axml 页面结构代码
 <image class="antvl7" mode="scaleToFill" src="{{antvl7}}" />
 
 ```
+
 index.less 样式代码
+
 ```less
 .wrap {
   height: 100vh;
@@ -39,6 +43,7 @@ index.less 样式代码
 ```
 
 index.ts 脚本代码
+
 ```javascript
 import {
   Map,
@@ -90,7 +95,7 @@ Page({
 
       miniScene.setBgColor('#222');
 
-      getJSON(worldJSON, function (result, data) {
+      getJSON(worldJSON, function(result, data) {
         if (result) {
           const lineLayer = new LineLayer()
             .source(data)
@@ -158,9 +163,10 @@ Page({
     miniScene.destroy();
   },
 });
-
 ```
+
 方法代码
+
 ```javascript
 function getJSON(url, callback) {
   my.request({

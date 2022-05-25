@@ -8,8 +8,8 @@ import Line from './components/line';
 import ParkDemo from './components/parkdemo';
 
 storiesOf('平面坐标地图', module)
-.add('Point', () => <PointGrid />)
-.add('Image', () => <Image />)
-.add('Polygon', () => <Polygon/>)
-.add('Line', () => <Line/>)
-.add('ParkDemo', () => <ParkDemo/>)
+  .add('Point', () => <PointGrid />)
+  .add('Image', () => <Image />)
+  .add('Polygon', () => <Polygon />)
+  .add('Line', () => <Line />)
+  .add('ParkDemo', () => <ParkDemo />);

@@ -87,7 +87,15 @@ module.exports = [
             'cloneDeep',
             'isString',
             'isNumber',
-            'merge'
+            'merge',
+            'mergeWith',
+            'upperFirst',
+            'camelCase',
+            'throttle',
+            'isUndefined',
+            'isEqual',
+            'isTypedArray',
+            'isPlainObject'
           ]
         },
         dynamicRequireTargets: [
