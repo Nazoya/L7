@@ -98,7 +98,9 @@ export class TilesetManager extends EventEmitter {
     }
 
     // 更新瓦片显示状态
+    console.time('update timespend');
     this.updateTileVisible();
+    console.timeEnd('update timespend');
   }
 
   // 重新加载瓦片

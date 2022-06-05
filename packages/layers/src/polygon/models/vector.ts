@@ -1,11 +1,13 @@
 import {
   createLayerContainer,
   ILayer,
+  ILayerConfig,
   ILayerGroup,
   IModelUniform,
 } from '@antv/l7-core';
 import { Tile, TilesetManager } from '@antv/l7-utils';
 import { Container } from 'inversify';
+import CityBuildingLayer from '../../citybuliding/building';
 import BaseModel from '../../core/BaseModel';
 import { IRasterTileLayerStyleOptions } from '../../core/interface';
 import LineLayer from '../../line';
@@ -191,21 +193,61 @@ export default class VertexTileModel extends BaseModel {
     if (!features) {
       return null;
     }
+    const config = this.configService.getLayerConfig(this.layer.id);
+    const shape = this.styleAttributeService.getLayerStyleAttribute('shape')
+      ?.scale;
+    const color = this.styleAttributeService.getLayerStyleAttribute('color')
+      ?.scale;
+
     const layer = new PolygonLayer({
-      visible: tile.isVisible,
       zIndex,
+      ...config,
+      visible: tile.isVisible,
       mask: true,
     })
       .source({
         type: 'FeatureCollection',
         features,
       })
-      .shape('fill')
-      .color('#00f')
-      .size(1)
       .style({
         opacity,
       });
+    if (shape) {
+      layer.shape(shape.field, shape.values ?? shape.callback);
+    }
+    if (color) {
+      layer.color(color.field, color.values ?? color.callback);
+    }
+    ['mousemove', 'mousedown', 'mouseup', 'click', 'dblclick'].forEach(
+      (evt) => {
+        layer.on(evt, (e) => this.layer.emit(evt, e));
+      },
+    );
+    // const layer = new CityBuildingLayer({
+    //   zIndex,
+    //   visible: tile.isVisible,
+    //   mask: true,
+    // })
+    //   .source({
+    //     type: 'FeatureCollection',
+    //     features,
+    //   })
+    //   // .shape('extrude')
+    //   // .color('#ddd')
+    //   // .size(100)
+    //   .style({
+    //     opacity,
+    //   }).on('click', e => console.log(e));
+    // console.log(layer, 'in the file');
+    // const layer = new PolygonLayer({
+    //   ...this.layer.getLayerConfig(),
+    //   visible: tile.isVisible,
+    //   zIndex,
+    //   mask: true,
+    // }).source({
+    //   type: 'FeatureCollection',
+    //   features,
+    // });
     const container = createLayerContainer(
       this.layer.sceneContainer as Container,
     );
@@ -244,6 +286,7 @@ export default class VertexTileModel extends BaseModel {
       .filter((tile) => tile.isLoaded)
       .map((tile) => {
         if (!tile.layer) {
+          // 创建子图层
           const subLayer = this.creatSubLayer(tile);
           if (subLayer) {
             tile.layer = subLayer;

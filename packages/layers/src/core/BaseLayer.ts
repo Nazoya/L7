@@ -608,6 +608,7 @@ export default class BaseLayer<ChildLayerStyleOptions = {}>
 
     return this;
   }
+
   public style(
     options: Partial<ChildLayerStyleOptions> & Partial<ILayerConfig>,
   ): ILayer {

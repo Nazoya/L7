@@ -25,6 +25,16 @@ function resolveFile(filePath) {
   return path.join(__dirname, '..', filePath);
 }
 
+const addSyntheticNamedExportsToSkippedNodeImports = () => ({
+  load: (importee) => {
+    if (importee === '\u0000node-resolve:empty.js') {
+      return {code: 'export default {};', syntheticNamedExports: true};
+    } else {
+      return null;
+    }
+  }
+});
+
 module.exports = [
   {
     input: resolveFile('build/bundle.ts'),
@@ -33,11 +43,17 @@ module.exports = [
       format: 'umd',
       name: 'L7',
       globals: {
-        'mapbox-gl': 'mapboxgl'
+        'mapbox-gl': 'mapboxgl',
+        // '@loaders.gl/core': 'core',
+        // '@loaders.gl/mvt': 'mvt'
       }
     },
     external: [
-      'mapbox-gl'
+      'mapbox-gl',
+      '@loaders.gl/core',
+      '@loaders.gl/mvt',
+      // '@loaders.gl/loader-utils',
+      // '@loaders.gl/worker-utils'
     ],
     treeshake: minified,
     plugins: [
@@ -59,7 +75,8 @@ module.exports = [
       resolve({
         browser: true,
         preferBuiltins: false,
-        extensions: [ '.js', '.ts' ]
+        extensions: [ '.js', '.ts' ],
+        // mainFields: [ 'browser', 'main' ]
       }),
       glsl(
         [ '**/*.glsl' ],
@@ -96,7 +113,7 @@ module.exports = [
             'isEqual',
             'isTypedArray',
             'isPlainObject'
-          ]
+          ],
         },
         dynamicRequireTargets: [
           'node_modules/inversify/lib/syntax/binding_{on,when}_syntax.js'
